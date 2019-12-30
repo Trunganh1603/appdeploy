@@ -11,14 +11,19 @@
         <h3 class="profile-user-name">
           <%= @user.user_name %>
         </h3>
-		<span>
-		  <% if @user == current_user %>
-		    <%= link_to 'Edit Profile', edit_profile_path(@user.user_name), 
-		      class: 'btn edit-button'%>
+        <span>
+          <% if @user == current_user %>
+        <%= link_to 'Edit Profile', edit_profile_path(@user.user_name), 
+          class: 'btn edit-button' %>
+        <% else %>
+        <% if current_user_is_following(current_user.id, @user.id) %>
+          <%= render  'profiles/unfollow_user'%>
+        <% else %>
+          <%= render  'profiles/follow_user'%>
+        <% end %>
+        <% end %>
+        </span>
 
-		    
-		      <% end %>
-		</span>
       </div>
       <p class="profile-bio">
         <%= @user.bio %>
